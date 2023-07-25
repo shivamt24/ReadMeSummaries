@@ -17,6 +17,14 @@ Note: This summary is provided as a reference and should not be considered a sub
   - [7. The Evils of duplication](#7-the-evils-of-duplication)
   - [8. Orthogonality](#8-orthogonality)
   - [9. Reversibility](#9-reversibility)
+  - [10 Tracer Bullets](#10-tracer-bullets)
+    - [Tracer Bullets Don't Always Hit Their Target](#tracer-bullets-dont-always-hit-their-target)
+    - [Tracer Code versus Prototyping](#tracer-code-versus-prototyping)
+  - [11. Prototypes and Post-it Notes](#11-prototypes-and-post-it-notes)
+    - [Things to Prototype](#things-to-prototype)
+    - [How to Use Prototypes](#how-to-use-prototypes)
+    - [Prototyping Architecture](#prototyping-architecture)
+    - [How Not to Use Prototypes](#how-not-to-use-prototypes)
 <!-- /TOC -->
 # Chapter 1. A Pragmatic Philosophy
 
@@ -220,12 +228,99 @@ If a module is sick, it is less likely to spread the symptoms around the rest of
 
 ## 9. Reversibility
 
->💡 **Tip: There are no Final Decisions.**
+>💡 **Tip: There are no Final Decisions**
 
 Be prepared for changes. However, by sticking to DRY principle, decoupling and use of metadata, we don't need to make as many critical, irreversible decisions.
 
 * Flexible Architecture
 Think about it up front, that you can support client-server, stand alone, or n-tier model just by changing a configuration file. Normally you can simply hide a third-party product behind a well defined abstract interface. But suppose you couldn't isolate it that cleanly. What if you had to sprinkle certain statements liberally through the code? Put that requirement in metadata, and use some automatic mechanism such as Perl or Aspects, to insert the necessary statements in the code itself. Whatever mechanism you use, make it reversible.
+
+## 10 Tracer Bullets
+
+>💡 **Tip: Use Tracer Bullets to Find the Target**
+
+Tracer code contains all the error checking, structuring, documentation, and self-checking that any piece of production code has. It simply is not fully functional. However, once you have achieved end-to-end connection among the components of your system, you can check how close to the target you are, adjusting if necessary. Once you're on target, adding functionality is easy.  
+
+Advantages:
+  - Users get to see something working early
+  - Developers build a structure to work in
+  - You have an integration platform
+  - You have something to demonstrate
+  - You have a better feel for progress  
+
+### Tracer Bullets Don't Always Hit Their Target  
+
+- Tracer bullets show what you're hitting. This may not always be the target. You then adjust your aim until they're on target. That's the point.  
+It's the same with tracer code. You use the technique in situations where you're not 100% certain of where you're going. You shouldn't be surprised if your first couple of attempts miss. Work out how to change what you've got to bring it nearer the target and be thankful that you've used a lean development methodology.
+
+### Tracer Code versus Prototyping
+
+- With a prototype, you're aiming to explore specific aspects of the final system.
+Tracer code is used to know how the application as a whole hangs together. It provides an architectural skeleton for the developers to hang code.  
+
+- Prototyping generates disposable code.
+Tracer code is lean but complete, and forms part of the skeleton of the final system.
+
+## 11. Prototypes and Post-it Notes
+
+Prototypes are designed to answer just a few questions, so they are much cheaper and faster to develop than applications that go into production. But if you find yourself in an environment where you cannot give up the details, then you need to ask yourself if you are really building a prototype at all.  
+
+### Things to Prototype  
+
+Anything that carries risk, hasn’t been tried before, or that is absolutely critical to the final system, unproven, experimental, or doubtful.
+
+- Architecture  
+- New functionality in an existing system
+- Structure or contents of external data
+- Third-party tools or components
+- Performance issues
+- User interface design  
+
+>💡 **Tip: Prototype to learn**  
+
+### How to Use Prototypes  
+
+Avoid details when building a prototype  
+
+- Correctness: Use dummy data wherever possible  
+- Completeness: The prototype may function only in a very limited sense  
+- Robustness: Error checking is likely to be incomplete or missing entirely  
+- Style: It's painful to admit, but prototype code probably doesn't have much in way of comments or documentation  
+
+### Prototyping Architecture  
+
+You may not even need to code in order to prototype architecture—you can prototype on a whiteboard, with Post-it notes or index cards. What you are looking for is how the system hangs together as a whole, again deferring details.  
+
+Areas to look for in the architectural prototype  
+
+- Are the responsibilities of the major components well defined and appropriate?
+- Are the collaborations between major components well defined?
+- Is coupling minimized?
+- Can you identify potential sources of duplication?
+- Are interface definitions and constraints acceptable?
+- Does every module have an access path to the data it needs during execution? Does it have that access when it needs it?
+
+Note: If you are investigating absolute (instead of relative) performance, you will need to stick to a language that is close in performance to the target language.  
+
+### How Not to Use Prototypes  
+
+Before you embark on any code-based prototyping, you must make it very clear that this code is disposable, incomplete, and unable to be completed.  
+
+If you feel there is a strong possibility in your environment or culture that the purpose of prototype code may be misinterpreted, you may be better off with the tracer bullet approach. You’ll end up with a solid framework on which to base future development.
+
+**Never deploy a prototype**  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
