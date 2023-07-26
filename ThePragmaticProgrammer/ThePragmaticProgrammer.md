@@ -25,6 +25,13 @@ Note: This summary is provided as a reference and should not be considered a sub
     - [How to Use Prototypes](#how-to-use-prototypes)
     - [Prototyping Architecture](#prototyping-architecture)
     - [How Not to Use Prototypes](#how-not-to-use-prototypes)
+  - [14. Domain Languages](#14-domain-languages)
+  - [15. Estimating](#15-estimating)
+    - [How Accurate Is Accurate Enough?](#how-accurate-is-accurate-enough)
+    - [Where Do Estimates Come From?](#where-do-estimates-come-from)
+    - [Estimating Project Schedules](#estimating-project-schedules)
+    - [What To Say When Asked For An Estimate](#what-to-say-when-asked-for-an-estimate)
+    - [Challenges](#challenges)
 <!-- /TOC -->
 # Chapter 1. A Pragmatic Philosophy
 
@@ -309,6 +316,60 @@ Before you embark on any code-based prototyping, you must make it very clear tha
 If you feel there is a strong possibility in your environment or culture that the purpose of prototype code may be misinterpreted, you may be better off with the tracer bullet approach. You’ll end up with a solid framework on which to base future development.
 
 **Never deploy a prototype**  
+
+
+## 14. Domain Languages  
+
+>💡 **Tip: Program Close to the Problem Domain**  
+
+
+## 15. Estimating  
+
+>💡 **Tip: Estimate to Avoid Surprises**  
+
+### How Accurate Is Accurate Enough?  
+
+|  Duration    | Quote Estimate in                    |
+|:-------------|:-------------------------------------|
+| 1 - 15 days  | Days                                 |
+| 3 - 6 weeks  | Weeks                                |
+| 8 - 20 weeks | Months                               |
+| 20+ weeks    | Think hard before giving an estimate |  
+
+### Where Do Estimates Come From?
+Ask someone who's been in a similar situation in the past.
+
+- Understand What's Being Asked
+- Build a Model of the System
+- Break the Model into Components
+- Give Each Parameter a Value
+- Calculate the Answers
+- Keep Track of Your Estimating Prowess  
+
+### Estimating Project Schedules  
+
+- Check requirements
+- Analyze risk (and prioritize riskiest items earlier)  
+- Design, implement, integrate  
+- Validate with the users  
+
+>💡 **Tip: Iterate the Schedule with the Code**  
+
+Unless you are doing an application similar to a previous one, with the same team and the same technology, you’d just be guessing.  
+So you complete the coding and testing of the initial functionality and mark this as the end of the first iteration. Based on that experience, you can refine your initial guess on the number of iterations and what can be included in each.  
+
+### What To Say When Asked For An Estimate  
+
+**You say "I'll get back to you"**  
+
+You almost always get better results if you slow the process down and spend some time going through the steps we describe above.  
+Estimates given at the coffee machine will (like the coffee) come back to haunt you.  
+
+### Challenges
+Start keeping a log of your estimates. For each, track how accurate you turned out to be. If your error was greater than 50%, try to find out where your estimate went wrong.  
+
+
+
 
 
 
