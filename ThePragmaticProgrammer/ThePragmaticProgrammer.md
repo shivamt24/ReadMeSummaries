@@ -32,6 +32,33 @@ Note: This summary is provided as a reference and should not be considered a sub
     - [Estimating Project Schedules](#estimating-project-schedules)
     - [What To Say When Asked For An Estimate](#what-to-say-when-asked-for-an-estimate)
     - [Challenges](#challenges)
+- [Chapter 3. The Basic Tools](#chapter-3-the-basic-tools)
+  - [16. The Power of Plain Text](#16-the-power-of-plain-text)
+  - [17. Shell Games](#17-shell-games)
+    - [A Shell of your own](#a-shell-of-your-own)
+  - [18. Power Editing](#18-power-editing)
+    - [WHAT DOES “FLUENT” MEAN?](#what-does-fluent-mean)
+    - [MOVING TOWARD FLUENCY](#moving-toward-fluency)
+    - [Growing your editor](#growing-your-editor)
+  - [19. Version Control](#19-version-control)
+    - [VERSION CONTROL AS A PROJECT HUB](#version-control-as-a-project-hub)
+  - [20. Debugging](#20-debugging)
+    - [Psychology Of Debugging](#psychology-of-debugging)
+    - [A Debugging Mindset](#a-debugging-mindset)
+    - [Where To Start](#where-to-start)
+    - [Debugging Strategies](#debugging-strategies)
+      - [**Reproducing Bugs**](#reproducing-bugs)
+      - [**Code In A Strange Island**](#code-in-a-strange-island)
+      - [**Bad Results**](#bad-results)
+      - [**Sensitive To Input Values**](#sensitive-to-input-values)
+      - [**The Binary Chop**](#the-binary-chop)
+      - [**Logging and/or Tracing**](#logging-andor-tracing)
+      - [**Rubber Ducking**](#rubber-ducking)
+      - [**Process Of Elimination**](#process-of-elimination)
+      - [**The Element Of Surprise**](#the-element-of-surprise)
+      - [**DEBUGGING CHECKLIST**](#debugging-checklist)
+  - [21. Text Manipulation](#21-text-manipulation)
+  - [22. Engineerng Daybooks](#22-engineerng-daybooks)
 <!-- /TOC -->
 # Chapter 1. A Pragmatic Philosophy
 
@@ -368,16 +395,203 @@ Estimates given at the coffee machine will (like the coffee) come back to haunt 
 ### Challenges
 Start keeping a log of your estimates. For each, track how accurate you turned out to be. If your error was greater than 50%, try to find out where your estimate went wrong.  
 
+<!-- New Version henceforth -->
+
+# Chapter 3. The Basic Tools  
 
 
+## 16. The Power of Plain Text  
+
+>💡 **Tip: Keep Knowledge in Plain Text**  
+
+Plain text doesn’t mean that the text is unstructured; HTML, JSON, YAML, and so on are all plain text.  
+
+Advantages  
+ - Insurance against obsolescence  
+ - Leverage existing tools
+ - Easier testing  
+
+## 17. Shell Games  
+
+>💡 **Tip: Use the Power of Command Shells**  
+
+Invest some energy in becoming familiar with your shell and things will soon start falling into place. Play around with your command shell, and you’ll be surprised at how much more productive it makes you.  
+
+### A Shell of your own  
 
 
+You’ll spend a lot of time living in one of these shells. Be like a hermit crab and make it your own home.  
+
+Shell customizations:  
+
+- Setting color themes  
+- Configuring a prompt  
+- Aliases and shell functions  
+  - Maybe you regularly update your Linux box, create an alias
+
+    ```shell
+    alias apt-up='sudo apt-get update && sudo apt-get upgrade'
+    ```
+
+- Command completion
+
+## 18. Power Editing  
+
+>💡 **Tip: Achieve Editor Fluency**  
+
+The major gain is that by becoming fluent, you no longer have to think about the mechanics of editing. The distance between thinking something and having it appear in an editor buffer drop way down. Your thoughts will flow, and your programming will benefit.
+
+### WHAT DOES “FLUENT” MEAN?
+
+Here’s the challenge list  
+Can you do all this without using a mouse/trackpad?
+
+- When editing text, move and make selections by character, word, line, and paragraph
+- When editing code, move by various syntactic units (matching delimiters, functions, modules, etc)
+- Reindent code following changes
+- Comment and uncomment blocks of code with a single command
+- Undo and redo changes
+- Split the editor window into multiple panels, and navigate between them
+- Navigate to a particular line number. Sort selected lines
+- Search for both strings and regular expressions, and repeat previous searches
+- Temporarily create multiple cursors based on a selection or on a pattern match, and edit the text at each in parallel
+- Display compilation errors in the current project. Run the current project’s tests
+
+### MOVING TOWARD FLUENCY  
+
+Every time you find yourself doing something repetitive, find a better way to do it. Install it in your muscle memory by repeating it.
+
+### Growing your editor  
+
+When you bump into some apparent limitation of the editor, search for an extension to do the job.  
+
+## 19. Version Control  
+
+>💡 **Tip: Always Use Version Control**  
+
+**Shared Directories Are Not Version Control** 
+
+Even if you are a single-person team on a one-week project. Even if it’s a “throw-away’’ prototype. Even if the stuff you’re working on isn’t source code. Make sure that everything is under version control.  
+
+### VERSION CONTROL AS A PROJECT HUB  
+
+Many teams have their VCS configured so that a push to a particular branch will automatically build the system, run the tests, and if successful deploy the new code into production.  
+Sound scary? Not when you realize you’re using version control. You can always roll it back.
+
+## 20. Debugging  
+
+No one writes perfect software, so it’s a given that debugging will take up a major portion of your day.  
+
+### Psychology Of Debugging  
+
+>💡 **Tip: Fix the Problem, Not the Blame**  
+
+Embrace the fact that debugging is just problem solving, and attack it as such.  
+It doesn’t really matter whether the bug is your fault or someone else’s. It is still your problem.  
+
+### A Debugging Mindset
+
+Above all, remember the first rule of debugging:
+>💡 **Don't Panic**  
+
+Don’t waste a single neuron on the train of thought that begins “but that can’t happen” because quite clearly it can, and has.  
+Resist the urge to fix just the symptoms you see: Always try to discover the root cause of a problem
 
 
+### Where To Start  
+
+Before you start to look at the bug, make sure that you are working on code that built cleanly—without warnings.  
+When trying to solve any problem, you need to gather all the relevant data, its easy to be misled by coincidences.
+
+- You may need to interview the user who reported the bug in order to gather more data than you were initially given  
+- You must brutally test both boundary conditions and realistic end-user usage patterns. You need to do this systematically  
+
+### Debugging Strategies  
+
+#### **Reproducing Bugs**  
+
+The best way to start fixing a bug is to make it reproducible.  
+We want a bug that can be reproduced with a single command. It’s a lot harder to fix a bug if you have to go through 15 steps to reproduce it.  
+
+So here’s the most important rule of debugging:
+>💡 **Tip: Failing Test Before Fixing Code**  
 
 
+#### **Code In A Strange Island**
 
 
+All this talk about isolating the bug is fine, when faced with 50,000 lines of code and a ticking clock, what’s a poor coder to do?  
+>💡 **Tip: Read the Damn Error Message**  
+
+#### **Bad Results**
+
+Get in there with a debugger and use your failing test to trigger the problem.  
+Make sure you know how to move up and down the call stack and examine the local stack environment.  
+
+Sometimes you’re looking at a stack trace that seems to scroll on forever. In this case, there’s often a quicker way to find the problem than examining each and every stack frame: use a **binary chop.** But before we discuss that, let’s look at two other common bug scenarios.  
+
+#### **Sensitive To Input Values**
+
+You can try looking at the place it crashes and work backwards.  
+Get a copy of the dataset and feed it through a locally running copy of the app, making sure it still crashes.  
+Then binary chop the data until you isolate exactly which input values are leading to the crash.  
+
+#### **The Binary Chop**  
+
+Binary Chop or Binary Search is a divide and conquer approach.
+
+Choose a value in the middle of the array. If it’s the one you’re looking for, stop. Otherwise you can chop the array in two. If the value you find is greater than the target then you know it must be in the first half of the array, otherwise it’s in the second half. Repeat.  
+
+Let’s see how to apply it to debugging:
+
+- When you’re facing a massive stacktrace and you’re trying to find out exactly which function mangled the value in error
+- If you find bugs that appear on certain datasets, split the dataset into two, and see if the problem occurs  
+- If your team has introduced a bug during a set of releases, you can use the same type of technique.  
+
+#### **Logging and/or Tracing**  
+
+Seeing a stack trace can only tell you how you got here directly.  
+You can use tracing statements to drill down into the code. That is, you can add tracing statements as you descend the call tree.  
+Trace messages should be in a regular, consistent format as you may want to parse them automatically.  
+
+#### **Rubber Ducking**  
+
+A useful technique for finding the cause of the problem is to explain it to someone else.  
+In explaining the problem to another person you must explicitly state things that you may take for granted when going through the code yourself. By having to verbalize some of these assumptions, you may suddenly gain new insight into the problem.  
+Don't have a person to explain to? A rubber duck will do.
+
+#### **Process Of Elimination**  
+
+It is possible that a bug exists in the OS, the compiler, or a third- party product—but this should not be your first thought.  
+It is much more likely that the bug exists in the application code under development.  
+Even if the problem does lie with a third party, you’ll still have to eliminate your code before submitting the bug report.  
+
+#### **The Element Of Surprise**  
+
+>💡 **Tip: Don’t Assume It—Prove It**  
+
+When faced with a “surprising’’ failure, you must accept that one or more of your assumptions is wrong.  
+When you come across a surprise bug, beyond merely fixing it, you need to determine why this failure wasn’t caught earlier.
+Consider whether you need to amend the unit or other tests so that they would have caught it.  
+Make sure that whatever happened, you’ll know if it happens again.  
+
+#### **DEBUGGING CHECKLIST**  
+
+- Is the problem being reported a direct result of the underlying bug, or merely a symptom?
+- Is the bug really in the framework you’re using? Is it in the OS? Or is it in your code?
+- If you explained this problem in detail to a coworker, what would you say?
+- If the suspect code passes its unit tests, are the tests complete enough? What happens if you run the tests with this data?
+- Do the conditions that caused this bug exist anywhere else in the system? Are there other bugs still in the larval stage, just waiting to hatch?  
+
+## 21. Text Manipulation  
+
+>💡 **Tip: Learn a Text Manipulation Language**  
+
+Using these languages, you can quickly hack up utilities and prototype ideas—jobs that might take five or ten times as long using conventional languages.  
+
+## 22. Engineerng Daybooks  
+
+Use journals to take notes in meetings, to jot down what you’re working on, to note variable values when debugging, to leave reminders where you put things, to record wild ideas, and sometimes just to doodle.  
 
 
 
