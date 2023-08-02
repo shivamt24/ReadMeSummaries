@@ -37,11 +37,11 @@ Note: This summary is provided as a reference and should not be considered a sub
   - [17. Shell Games](#17-shell-games)
     - [A Shell of your own](#a-shell-of-your-own)
   - [18. Power Editing](#18-power-editing)
-    - [WHAT DOES “FLUENT” MEAN?](#what-does-fluent-mean)
+    - [What Does “Fluent” Mean?](#what-does-fluent-mean)
     - [MOVING TOWARD FLUENCY](#moving-toward-fluency)
     - [Growing your editor](#growing-your-editor)
   - [19. Version Control](#19-version-control)
-    - [VERSION CONTROL AS A PROJECT HUB](#version-control-as-a-project-hub)
+    - [Version Control As A Project Hub](#version-control-as-a-project-hub)
   - [20. Debugging](#20-debugging)
     - [Psychology Of Debugging](#psychology-of-debugging)
     - [A Debugging Mindset](#a-debugging-mindset)
@@ -58,7 +58,26 @@ Note: This summary is provided as a reference and should not be considered a sub
       - [**The Element Of Surprise**](#the-element-of-surprise)
       - [**DEBUGGING CHECKLIST**](#debugging-checklist)
   - [21. Text Manipulation](#21-text-manipulation)
-  - [22. Engineerng Daybooks](#22-engineerng-daybooks)
+  - [22. Engineering Daybooks](#22-engineering-daybooks)
+- [Chapter 4. Pragmatic Paranoia](#chapter-4-pragmatic-paranoia)
+  - [23. DBC: Design by Contract](#23-dbc-design-by-contract)
+    - [Implementing DBC](#implementing-dbc)
+    - [Assertions](#assertions)
+    - [DBC And Crashing Early](#dbc-and-crashing-early)
+    - [Semantic Invariant](#semantic-invariant)
+    - [Dynamic Contracts And Agents](#dynamic-contracts-and-agents)
+  - [24. Dead Programs Tell No Lies](#24-dead-programs-tell-no-lies)
+    - [Crash, Don't Trash](#crash-dont-trash)
+  - [25. Assertive Programming](#25-assertive-programming)
+    - [Assertions And Side Effects](#assertions-and-side-effects)
+    - [Leave Assertions Turned On](#leave-assertions-turned-on)
+  - [26. How to Balance Resources](#26-how-to-balance-resources)
+    - [Balancing And Exception](#balancing-and-exception)
+      - [**An Exception Antipattern**](#an-exception-antipattern)
+    - [When You Can't Balance Resources](#when-you-cant-balance-resources)
+      - [Checking The Balance](#checking-the-balance)
+  - [26. Don’t Outrun Your Headlights](#26-dont-outrun-your-headlights)
+    - [Black Swans](#black-swans)
 <!-- /TOC -->
 # Chapter 1. A Pragmatic Philosophy
 
@@ -406,10 +425,11 @@ Start keeping a log of your estimates. For each, track how accurate you turned o
 
 Plain text doesn’t mean that the text is unstructured; HTML, JSON, YAML, and so on are all plain text.  
 
-Advantages  
- - Insurance against obsolescence  
- - Leverage existing tools
- - Easier testing  
+Advantages:  
+
+- Insurance against obsolescence  
+- Leverage existing tools
+- Easier testing  
 
 ## 17. Shell Games  
 
@@ -441,7 +461,7 @@ Shell customizations:
 
 The major gain is that by becoming fluent, you no longer have to think about the mechanics of editing. The distance between thinking something and having it appear in an editor buffer drop way down. Your thoughts will flow, and your programming will benefit.
 
-### WHAT DOES “FLUENT” MEAN?
+### What Does “Fluent” Mean?
 
 Here’s the challenge list  
 Can you do all this without using a mouse/trackpad?
@@ -473,7 +493,7 @@ When you bump into some apparent limitation of the editor, search for an extensi
 
 Even if you are a single-person team on a one-week project. Even if it’s a “throw-away’’ prototype. Even if the stuff you’re working on isn’t source code. Make sure that everything is under version control.  
 
-### VERSION CONTROL AS A PROJECT HUB  
+### Version Control As A Project Hub  
 
 Many teams have their VCS configured so that a push to a particular branch will automatically build the system, run the tests, and if successful deploy the new code into production.  
 Sound scary? Not when you realize you’re using version control. You can always roll it back.
@@ -589,15 +609,183 @@ Make sure that whatever happened, you’ll know if it happens again.
 
 Using these languages, you can quickly hack up utilities and prototype ideas—jobs that might take five or ten times as long using conventional languages.  
 
-## 22. Engineerng Daybooks  
+## 22. Engineering Daybooks  
 
 Use journals to take notes in meetings, to jot down what you’re working on, to note variable values when debugging, to leave reminders where you put things, to record wild ideas, and sometimes just to doodle.  
 
 
+# Chapter 4. Pragmatic Paranoia  
+
+>💡 **Tip: You Can’t Write Perfect Software**  
+
+Did that hurt? It shouldn’t. Embrace it. Celebrate it.  
+No one in the brief history of computing has ever written a piece of perfect software.
+Pragmatic Programmers don't trust themselves, either.
+
+## 23. DBC: Design by Contract  
+
+A correct program is one that does no more and no less than it claims to do.  
+
+Use:
+
+- Preconditions
+  - What must be true in order for the routine to be called; the routine’s requirements
+  - A routine should never get called when its preconditions would be violated
+  - It is the caller’s responsibility to pass good data
+- Postconditions
+  - What the routine is guaranteed to do; the state of the world when the routine is done
+- Invariants
+  - A class ensures that this condition is always true from the perspective of a caller
+
+>💡 **Tip: Design with Contracts**  
+
+A contract between a routine and any potential caller can thus be read as:  
+If all the routine’s preconditions are met by the caller, the routine shall guarantee that all postconditions and invariants will be true when it completes  
+
+Write "lazy" code: be strict in what you will accept before you begin, and promise as little as possible in return.  
+
+Remember, if your contract indicates that you’ll accept anything and promise the world in return, then you’ve got a lot of code to write!  
+
+### Implementing DBC  
+
+Simply enumerating at design time:
+
+- What the input domain range is
+- What the boundary conditions are
+- What the routine promises to deliver (and what it doesn't)
+
+### Assertions  
+
+You can use assertions to apply DBC in some range. (Assertions are not propagated in subclasses)  
+
+### DBC And Crashing Early  
+
+It’s much easier to find and diagnose the problem by crashing early, at the site of the problem.  
+
+### Semantic Invariant  
+
+The error should be on the side of not processing a transaction rather than processing a duplicate transaction.  
+
+### Dynamic Contracts And Agents  
+
+Next time you design a piece of software, design its contract as well.  
+
+## 24. Dead Programs Tell No Lies  
+
+Pragmatic Programmers tell themselves that if there is an error, something very, very bad has happened.  
+
+Note: Each and every case/switch statement needs to have a default clause: we want to know when the “impossible” has happened.  
+
+>💡 **Tip: Crash Early**  
+
+### Crash, Don't Trash  
+
+Defensive programming is a waste of time. Let it crash!  
+A dead program normally does a lot less damage than a crippled one.  
+
+## 25. Assertive Programming  
+
+>💡 **Tip: Use Assertions to Prevent the Impossible**  
+
+Whenever you find yourself thinking “but of course that could never happen,” add code to check it. The easiest way to do this is with assertions.  
+
+### Assertions And Side Effects  
+
+It’s embarrassing when the code we add to detect errors actually ends up creating new errors. This can happen with assertions if evaluating the condition has side effects.  
+
+### Leave Assertions Turned On  
+
+There is a common misunderstanding about assertions. It goes something like this:  
+
+- Assertions add some overhead to code. Because they check for things that should never happen, they’ll get triggered only by a bug in the code. Once the code has been tested and shipped, they are no longer needed, and should be turned off to make the code run faster.  
+
+There are two patently wrong assumptions here.  
+
+- First, testing finds all the bugs
+- Second, the optimists are forgetting that your program runs in a dangerous world. During testing, someone playing a game won’t exhaust memory, and log files won’t fill the storage partition. These things might happen when your program runs in a production environment.  
+
+Even if you do have performance issues, turn off only those assertions that really hit you.  
+
+## 26. How to Balance Resources  
+
+>💡 **Tip: Finish What You Start**  
+
+The function or object that allocates a resource should be responsible for deallocating it  
+
+>💡 **Tip: Act Locally**  
+
+When in doubt, it always pays to reduce scope  
+
+### Balancing And Exception  
+
+If an exception is thrown, how do you guarantee that everything allocated prior to the exception is tidied up?  
+You generally have two choices:  
+
+- Usevariablescope(forexample,stackvariablesinC++orRust)  
+- Useafinallyclauseinatry...catchblock  
+
+#### **An Exception Antipattern**
+
+Can you see what’s wrong?
+
+```java
+begin
+    thing = allocate_resource()
+    process(thing)
+finally
+    deallocate(thing)
+end
+```  
+
+What happens if the resource allocation fails and raises an exception? The finally clause will catch it, and try to deallocate a thing that was never allocated.  
+
+The correct pattern:  
+
+```java
+thing = allocate_resource()
+begin
+    process(thing)
+finally
+    deallocate(thing)
+end  
+```  
+
+### When You Can't Balance Resources  
+
+There are times when the basic resource allocation pattern just isn’t appropriate.  
+One routine will allocate an area of memory and link it into some larger structure, where it may stay for some time.  
+
+You have three main options:  
+
+- The top-level structure is also responsible for freeing any substructures that it contains. These structures then recursively delete data they contain, and so on.
+- The top-level structure is simply deallocated. Any structures that it pointed to (that are not referenced elsewhere) are orphaned.
+- The top-level structure refuses to deallocate itself if it contains any substructures.  
+
+#### Checking The Balance  
+
+It is always a good idea to build code that actually checks that resources are indeed freed appropriately
 
 
+## 26. Don’t Outrun Your Headlights  
 
+>💡 **Tip: Take Small Steps—Always**  
 
+Always take small, deliberate steps, checking for feedback and adjusting before proceeding.  
+What do we mean exactly by feedback?  
+
+- Results in a REPL provide feedback on your understanding of APIs and algorithms
+- Unit tests provide feedback on your last code change
+- User demo and conversation provide feedback on features and usability  
+
+What’s a task that’s too big? Any task that requires “fortune telling.”
+
+### Black Swans  
+
+>💡 **Tip: Avoid Fortune-Telling**  
+
+In his book, The Black Swan, Nassim Nicholas Taleb posits that all significant events in history have come from high-profile, hard- to-predict, and rare events that are beyond the realm of normal expectations.  
+
+These outliers, while statistically rare, have disproportionate effects.
 
 Content from The Pragmatic Programmer, by Andrew Hunt and David Thomas. Visit [www.pragmaticprogrammer.com](http://www.pragmaticprogrammer.com).
 Copyright 2000 by Addison Wesley Longman, Inc.
